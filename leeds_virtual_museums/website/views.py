@@ -1,6 +1,7 @@
 from cmath import log
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -18,6 +19,15 @@ def login_view(request, *args, **kwargs):
                 return redirect("/")
             else:
                 return render(request, "login.html", {"status": "Authentication failed."})
+        elif request.POST.get("register"):
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            confirm_password = request.POST.get("confirm_password")
+            if password != confirm_password:
+                return render(request, "login.html", {"status": "Password and confirm password is different."})
+            else:
+                User.objects.create_user(username=username, email="", password=password)
+                return render(request, "login.html", {"status": "Register sucessful, please login."})
     return render(request, "login.html", {})
 
 @login_required(login_url="/login")
