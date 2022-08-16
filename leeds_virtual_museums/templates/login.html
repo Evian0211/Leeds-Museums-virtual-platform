@@ -3,11 +3,17 @@
 {% block content %}
 
 <h1>Login page</h1>
-<div id="login-block">
+{% if status != null %}
+<div id="login_failed_block">
+    <p>{{ status }}</p>
+</div>
+
+{% endif %}
+<div id="login_block">
     <form method="POST" action=""> {% csrf_token %}
         <p>Username: <input type="text" name="username"></p>
         <p>Password: <input type="text" name="password"></p>
-        <input type="submit" value="login" name="submit">
+        <input type="submit" value="login" name="login">
     </form>
 </div>
 

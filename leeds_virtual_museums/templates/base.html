@@ -7,34 +7,41 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
-    <body>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/account">Account</a>
-                </li>
-                <li>
-                    <a href="/curriculum">Curriculum</a>
-                </li>
-                <li>
-                    <a href="/evaluation">Evaluation</a>
-                </li>
-                <li>
-                    <a href="/plan_visit">Plan your visit</a>
-                </li>
-            </ul>
-        </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/account">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/curriculum">Curriculum</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/evaluation">Evaluation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/plan_visit">Plan your visit</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <form method="POST" action="/login"> {% csrf_token %}
+                    <input type="submit" value="logout" name="logout" class="nav-link">
+                </form>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
 
+    <body>
         {% block content %}
         {% endblock %}
-
-        <footer class="footer">
-            <div class="container">
-                
-            </div>
-        </footer>
     </body>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Author: Yuwen Liu</p>
+        </div>
+    </footer>
 </html>
