@@ -23,6 +23,7 @@ urlpatterns = [
     path('login', login_view),
     path('account', account_view),
     path('curriculum', curriculum_view),
+    path('course', course_view),
     path('evaluation', evaluation_view),
     path('evaluation_quiz', evaluation_quiz_view),
     path('plan_visit', plan_visit_view)

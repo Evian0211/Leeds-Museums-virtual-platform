@@ -1,10 +1,11 @@
 from cmath import log
+import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
-from .text import EVALUATION_QUESTIONS, NO_EVALUATION_TEXT
+from .text import EVALUATION_QUESTIONS, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE
 from . import user
 
 # Create your views here.
@@ -33,17 +34,51 @@ def login_view(request, *args, **kwargs):
                 return render(request, "login.html", {"status": "Register sucessful, please login."})
     return render(request, "login.html", {})
 
+
 @login_required(login_url="/login")
 def home_view(request, *args, **kwargs):
     return render(request, "home.html", {})
+
 
 @login_required(login_url="/login")
 def account_view(request, *args, **kwargs):
     return render(request, "account.html", {})
 
+
 @login_required(login_url="/login")
 def curriculum_view(request, *args, **kwargs):
-    return render(request, "curriculum.html", {})
+    evaluation = user.get_evaulation_result(request.user)
+    if evaluation:
+        course_number, course_name, _, _ = RECOMMAND_COURSE[evaluation]
+        other_courses = CURRICULUM[:]
+        del other_courses[course_number]
+    else:
+        course_number, course_name = None, None
+        other_courses = CURRICULUM
+    return render(request, "curriculum.html", {"recommandation": course_name, "course_number": course_number, "other_courses": other_courses})
+
+
+@login_required(login_url="/login")
+def course_view(request, *args, **kwargs):
+    if request.GET.get("course"):
+        course_number = int(request.GET.get("course"))
+        if request.GET.get("section"):
+            if request.GET.get("section")=="quiz":
+                section_number = -1
+            section_number = int(request.GET.get("section"))
+        else:
+            section_number = 0
+    else:
+        return redirect("/curriculum")
+    
+    _, course_name, course_content, course_question = CURRICULUM[course_number]
+    if section_number != -1:
+        section_header, section_content = course_content[section_number]
+        return render(request, "course.html", {"header": section_header, "content": section_content})
+    else:
+        # TODO: take quiz
+        return render(request, "course.html", {})
+
 
 @login_required(login_url="/login")
 def evaluation_view(request, *args, **kwargs):
@@ -51,6 +86,7 @@ def evaluation_view(request, *args, **kwargs):
     if not evaluation_result:
         evaluation_result = NO_EVALUATION_TEXT
     return render(request, "evaluation.html", {"evaluation_result": evaluation_result})
+
 
 @login_required(login_url="/login")
 def evaluation_quiz_view(request, *args, **kwargs):
@@ -72,6 +108,7 @@ def evaluation_quiz_view(request, *args, **kwargs):
     else:
         next = -1
     return render(request, "evaluation_quiz.html", {"this": q_number, "next": next, "question": question_text, "choices": choices})
+
 
 @login_required(login_url="/login")
 def plan_visit_view(request, *args, **kwargs):

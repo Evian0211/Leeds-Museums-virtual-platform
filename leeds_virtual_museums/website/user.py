@@ -1,5 +1,5 @@
 from .models import Item, Evaluation, Evaluation_quiz_answer, Curriculum
-from .text import EVALUATION_QUESTIONS
+from .text import EVALUATION_QUESTIONS, EVALUATION_TYPES
 
 def get_evaulation_result(user):
     try:
@@ -37,9 +37,9 @@ def evaluate(user):
         sorted_answers.append(answer.answer)
     # TODO: Fill this logic
     if sorted_answers[0] == 0 and sorted_answers[1] == 0:
-        set_evaluation_result(user, "Type A")
+        set_evaluation_result(user, EVALUATION_TYPES[0])
     else:
-        set_evaluation_result(user, "Type B")
+        set_evaluation_result(user, EVALUATION_TYPES[1])
 
 def set_evaluation_result(user, result):
     try:
