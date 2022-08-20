@@ -1,5 +1,5 @@
 from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum
-from .text import CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES
+from .text import CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES, COURSE_ONE_FULL_MARK
 
 def get_evaulation_result(user):
     try:
@@ -85,5 +85,26 @@ def mark_course(user, course_number):
     _, course, _, _ = CURRICULUM[course_number]
     # TODO: Fill this logic
     score = 100
+
+    try:
+        old_result = Evaluation.objects.get(user=user, course=course)
+        old_result.delete()
+    except:
+        pass
     result = Curriculum(user=user, course=course, score=score)
     result.save()
+
+    return score
+
+def get_item(user, course_number, score):
+    # TODO: Fill this logic
+    got_item = False
+    if course_number == 0 and score == 100:
+        try:
+            item = Item.objects.get(user=user, name=COURSE_ONE_FULL_MARK)
+        except:
+            item = Item(user=user, name=COURSE_ONE_FULL_MARK)
+            item.save()
+            got_item = True
+
+    return got_item

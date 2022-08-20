@@ -87,8 +87,9 @@ def course_question_view(request, *args, **kwargs):
         if request.method == "POST":
             if request.POST.get("submit"):
                 user.update_course_quiz_answer(request.user, course_number, request.POST.get("this"), int(request.POST.get("answer")))
-                user.mark_course(request.user, course_number)
+                score = user.mark_course(request.user, course_number)
                 user.clear_course_quiz_answers(request.user, course_number)
+                user.get_item(request.user, course_number, score)
                 # TODO: create a course quiz result page
                 return redirect("/")
             elif request.POST.get("next"):
