@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <h1>Account page</h1>
+
+<h3>My scores</h3>
+{% for course, score in curriculum_status %}
+<span>{{course}}: {{score}}</span>
+{% endfor %}
+
+<h3>My items</h3>
+{% for item in items %}
+<span>{{item}}</span>
+{% endfor %}
+
 {% endblock %}

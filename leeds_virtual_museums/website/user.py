@@ -1,5 +1,5 @@
-from .models import Item, Evaluation, Evaluation_quiz_answer, Curriculum
-from .text import EVALUATION_QUESTIONS, EVALUATION_TYPES
+from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum
+from .text import CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES
 
 def get_evaulation_result(user):
     try:
@@ -59,7 +59,31 @@ def get_all_items(user):
 
 def get_curriculum_status(user):
     status = Curriculum.objects.filter(user=user)
-    status_dict = {}
+    status_list = []
     for course in status:
-        status[course.name] = course.score
-    return status_dict
+        status_list.append((course.course, course.score))
+    return status_list
+
+def update_course_quiz_answer(user, course_number, q_number, answer):
+    _, course, _, _ = CURRICULUM[course_number]
+    try:
+        answer = Course_quiz_answer.objects.get(user=user, course=course, question=q_number)
+        answer.delete()
+    except:
+        pass
+
+    answer = Course_quiz_answer(user=user, course=course, question=q_number, answer=answer)
+    answer.save()
+
+def clear_course_quiz_answers(user, course_number):
+    _, course, _, _ = CURRICULUM[course_number]
+    answers = Course_quiz_answer.objects.filter(user=user, course=course)
+    for answer in answers:
+        answer.delete()
+
+def mark_course(user, course_number):
+    _, course, _, _ = CURRICULUM[course_number]
+    # TODO: Fill this logic
+    score = 100
+    result = Curriculum(user=user, course=course, score=score)
+    result.save()

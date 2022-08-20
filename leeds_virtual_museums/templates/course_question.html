@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-3">
+        <h3>{{ course_name }}</h3>
+        {% for section in category %}
+        <a class="row" href="/course?course={{ course_number }}&section={{ forloop.counter0 }}">{{ section }}</a>
+        {% endfor %}
+        <a class="row" href="/course?course={{ course_number }}&section=-1">Quiz</a>
+    </div>
+
+
+    <div class="col-9">
+        {% if next != -1 %}
+        <form method="POST" action="/course_question?course={{ course_number }}&question={{ next }}"> {% csrf_token %}
+        {% else %}
+        <form method="POST" action=""> {% csrf_token %}
+        {% endif %}
+            <label for="answer">{{ question }}</label>
+            <select name="answer">
+                {% for option in choices %}
+                <option value="{{ forloop.counter0 }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" value="{{ this }}" name="this">
+            {% if next != -1 %}
+            <input type="submit" value="Next" name="next">
+            {% else %}
+            <input type="submit" value="Submit" name="submit">
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

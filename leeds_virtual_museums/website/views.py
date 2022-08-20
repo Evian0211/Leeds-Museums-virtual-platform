@@ -1,5 +1,6 @@
 from cmath import log
 import re
+from unicodedata import category
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -42,7 +43,9 @@ def home_view(request, *args, **kwargs):
 
 @login_required(login_url="/login")
 def account_view(request, *args, **kwargs):
-    return render(request, "account.html", {})
+    curriculum_status = user.get_curriculum_status(request.user)
+    items = user.get_all_items(request.user)
+    return render(request, "account.html", {"curriculum_status": curriculum_status, "items": items})
 
 
 @login_required(login_url="/login")
@@ -63,21 +66,44 @@ def course_view(request, *args, **kwargs):
     if request.GET.get("course"):
         course_number = int(request.GET.get("course"))
         if request.GET.get("section"):
-            if request.GET.get("section")=="quiz":
-                section_number = -1
             section_number = int(request.GET.get("section"))
         else:
             section_number = 0
     else:
         return redirect("/curriculum")
     
-    _, course_name, course_content, course_question = CURRICULUM[course_number]
-    if section_number != -1:
-        section_header, section_content = course_content[section_number]
-        return render(request, "course.html", {"header": section_header, "content": section_content})
+    _, course_name, course_content, _ = CURRICULUM[course_number]
+    category = [header for header, _ in course_content]
+    section_header, section_content = course_content[section_number]
+    return render(request, "course.html", {"header": section_header, "content": section_content, "course_name": course_name, "course_number": course_number, "category": category})
+
+
+@login_required(login_url="/login")
+def course_question_view(request, *args, **kwargs):
+    course_number = int(request.GET.get("course"))
+    if course_number == None:
+        return redirect("/curriculum")
     else:
-        # TODO: take quiz
-        return render(request, "course.html", {})
+        if request.method == "POST":
+            if request.POST.get("submit"):
+                user.update_course_quiz_answer(request.user, course_number, request.POST.get("this"), int(request.POST.get("answer")))
+                user.mark_course(request.user, course_number)
+                user.clear_course_quiz_answers(request.user, course_number)
+                # TODO: create a course quiz result page
+                return redirect("/")
+            elif request.POST.get("next"):
+                user.update_course_quiz_answer(request.user, course_number, request.POST.get("this"), int(request.POST.get("answer")))
+        if request.GET.get("question"):
+            q_number = int(request.GET.get("question"))
+        else:
+            q_number = 0
+        _, _, _, questions = CURRICULUM[course_number]
+        (question_text, choices) = questions[q_number]
+        if q_number < len(questions) - 1:
+            next = q_number + 1
+        else:
+            next = -1
+        return render(request, "course_question.html", {"course_number": course_number, "this": q_number, "next": next, "question": question_text, "choices": choices})
 
 
 @login_required(login_url="/login")

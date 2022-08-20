@@ -17,5 +17,11 @@ class Evaluation_quiz_answer(models.Model):
 
 class Curriculum(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    course = models.CharField(max_length=100)
     score = models.FloatField()
+
+class Course_quiz_answer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.CharField(max_length=100)
+    question = models.IntegerField()
+    answer = models.IntegerField()

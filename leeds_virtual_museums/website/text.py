@@ -27,9 +27,9 @@ COURSE_ONE_CONTENT = [
 ]
 
 COURSE_ONE_QUESTIONS = [
-    ("Question 1 text", ["choice 1", "choice 2", "choice 3"]),
-    ("Question 2 text", ["a", "b", "c", "d"]),
-    ("Question 3 text", ["a", "b", "c", "d", "e"])
+    ("C1 Question 1 text", ["choice 1", "choice 2", "choice 3"]),
+    ("C1 Question 2 text", ["a", "b", "c", "d"]),
+    ("C1 Question 3 text", ["a", "b", "c", "d", "e"])
 ]
 
 
@@ -48,9 +48,9 @@ COURSE_TWO_CONTENT = [
 ]
 
 COURSE_TWO_QUESTIONS = [
-    ("Question 1 text", ["choice 1", "choice 2", "choice 3"]),
-    ("Question 2 text", ["a", "b", "c", "d"]),
-    ("Question 3 text", ["a", "b", "c", "d", "e"])
+    ("C2 Question 1 text", ["choice 1", "choice 2", "choice 3"]),
+    ("C2 Question 2 text", ["a", "b", "c", "d"]),
+    ("C2 Question 3 text", ["a", "b", "c", "d", "e"])
 ]
 
 CURRICULUM = [
