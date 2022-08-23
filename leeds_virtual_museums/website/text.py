@@ -3,27 +3,23 @@
 NO_EVALUATION_TEXT = "You have not done an evaluation."
 
 EVALUATION_QUESTIONS = [
-    ("Question 1 text", ["choice 1", "choice 2", "choice 3"]),
-    ("Question 2 text", ["a", "b", "c", "d"]),
-    ("Question 3 text", ["a", "b", "c", "d", "e"])
+    ("Q1. Which subject do you think is the most interesting one?", ["History", "Art", "Politics", "Business"]),
+    ("Q2. In the following occupations, which one are you interested the most?", ["Engineer", "Artist", "Lawyer", "Police"]),
+    ("Q3. If you receive a parcel, what do you think it will be in the parcel?", ["A golden treasure", "A gun", "A painting", "A football"]),
+    ("Q4. In the following places, which one do you think you would like to go?", ["Park", "Cinema", "Circus", "Zoo"]),
+    ("Q5. Which part of a museum do you like the most?", ["Heritage", "Natural Science", "Art galleries", "Historical figures"])
 ]
 
-EVALUATION_TYPES = ["Type A", "Type B"]
+EVALUATION_TYPES = ["Leeds over time", "Leeds at war", "Creativity at Leeds", "Industrial Leeds", "Leeds Society and Community", "Leeds: Empire and Colonialism"]
 
 # ----------------------------------------
 # ------------- Curriculum ---------------
 
-COURSE_ONE_NAME = "Leeds Art"
+COURSE_ONE_NAME = "Leeds Over Time"
 
 COURSE_ONE_CONTENT = [
-    ("Section 1 header", [
-        "This is the content of section 1 course 1 paragraph 1.", 
-        "This is the content of section 1 course 1 paragraph 2."
-        ]),
-    ("Section 2 header", [
-        "This is the content of section 2 course 1 paragraph 1.",
-        "This is the content of section 2 course 1 paragraph 2.",
-        ])    
+    ("Section 1 header", "https://www.mylearning.org/stories/leeds-to-the-world-the-story-of-two-leeds-engines/1515?"),
+    ("Section 2 header", "https://www.mylearning.org/stories/leeds-to-the-world-the-story-of-two-leeds-engines/1515?")    
 ]
 
 COURSE_ONE_QUESTIONS = [
@@ -34,17 +30,11 @@ COURSE_ONE_QUESTIONS = [
 
 
 
-COURSE_TWO_NAME = "Leeds History"
+COURSE_TWO_NAME = "Leeds At War"
 
 COURSE_TWO_CONTENT = [
-    ("Section 1 header", [
-        "This is the content of section 1 course 2 paragraph 1.", 
-        "This is the content of section 1 course 2 paragraph 2."
-        ]),
-    ("Section 2 header", [
-        "This is the content of section 2 course 2 paragraph 1.",
-        "This is the content of section 2 course 2 paragraph 2.",
-        ])    
+    ("Section 1 header", "https://www.mylearning.org/stories/leeds-to-the-world-the-story-of-two-leeds-engines/1515?"),
+    ("Section 2 header", "https://www.mylearning.org/stories/leeds-to-the-world-the-story-of-two-leeds-engines/1515?")    
 ]
 
 COURSE_TWO_QUESTIONS = [

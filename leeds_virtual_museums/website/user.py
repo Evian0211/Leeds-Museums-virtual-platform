@@ -35,11 +35,72 @@ def evaluate(user):
     sorted_answers = []
     for answer in answers:
         sorted_answers.append(answer.answer)
-    # TODO: Fill this logic
-    if sorted_answers[0] == 0 and sorted_answers[1] == 0:
-        set_evaluation_result(user, EVALUATION_TYPES[0])
-    else:
-        set_evaluation_result(user, EVALUATION_TYPES[1])
+
+    score = [0,0,0,0,0,0]
+    if sorted_answers[0] == 0:
+        score[0] += 1
+        score[5] += 1
+    elif sorted_answers[0] == 1:
+        score[2] += 1
+        score[5] += 1
+    elif sorted_answers[0] == 2:
+        score[4] += 1
+        score[5] += 1
+    elif sorted_answers[0] == 3:
+        score[3] += 1
+        score[5] += 1
+
+    if sorted_answers[1] == 0:
+        score[3] += 1
+    elif sorted_answers[1] == 1:
+        score[2] += 1
+    elif sorted_answers[1] == 2:
+        score[4] += 1
+    elif sorted_answers[1] == 3:
+        score[1] += 1
+
+    if sorted_answers[2] == 0:
+        score[0] += 1
+    elif sorted_answers[2] == 1:
+        score[1] += 1
+    elif sorted_answers[2] == 2:
+        score[2] += 1
+    elif sorted_answers[2] == 3:
+        score[4] += 1
+
+    if sorted_answers[3] == 0:
+        score[4] += 1
+    elif sorted_answers[3] == 1:
+        score[1] += 1
+        score[4] += 1
+        score[3] += 1
+    elif sorted_answers[3] == 2:
+        score[2] += 1
+    elif sorted_answers[3] == 3:
+        score[0] += 1
+
+    if sorted_answers[4] == 0:
+        score[0] += 1
+        score[5] += 1
+        score[4] += 1
+        score[3] += 1
+    elif sorted_answers[4] == 1:
+        score[0] += 1
+        score[5] += 1
+    elif sorted_answers[4] == 2:
+        score[2] += 1
+        score[5] += 1
+    elif sorted_answers[4] == 3:
+        score[1] += 1
+        score[4] += 1
+        score[5] += 1
+
+    max_interst = 0
+    recommandation = ""
+    for i in len(score):
+        if score[i] > max_interst:
+            recommandation = EVALUATION_TYPES[i]
+    set_evaluation_result(user, recommandation)
 
 def set_evaluation_result(user, result):
     try:

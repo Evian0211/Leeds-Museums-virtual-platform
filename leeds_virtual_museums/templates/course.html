@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="row">
-    <div class="col-3">
-        <h3>{{ course_name }}</h3>
+<div class="row" id="course">
+    <div class="col-2">
+        <h5>{{ course_name }}</h5>
         {% for section in category %}
-        <a class="row" href="/course?course={{ course_number }}&section={{ forloop.counter0 }}">{{ section }}</a>
+        <a href="/course?course={{ course_number }}&section={{ forloop.counter0 }}">{{ section }}</a>
+        <br>
         {% endfor %}
-        <a class="row" href="/course_question?course={{ course_number }}">Quiz</a>
+        <a href="/course_question?course={{ course_number }}">Quiz</a>
     </div>
 
 
-    <div class="col-9">
+    <div class="col-10">
         <h1>{{ header }}</h1>
-        {% for paragraph in content %}
-        <p>{{ paragraph }}</p>
-        {% endfor %}
+        <iframe id="course_content" src="{{link}}" width="100%" height="1000px"></iframe>
     </div>
 </div>
 
-
+<script>
+    document.getElementById("course_content").height = "1000";
+</script>
 {% endblock %}

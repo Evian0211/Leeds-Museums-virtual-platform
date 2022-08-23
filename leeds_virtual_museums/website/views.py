@@ -74,8 +74,8 @@ def course_view(request, *args, **kwargs):
     
     _, course_name, course_content, _ = CURRICULUM[course_number]
     category = [header for header, _ in course_content]
-    section_header, section_content = course_content[section_number]
-    return render(request, "course.html", {"header": section_header, "content": section_content, "course_name": course_name, "course_number": course_number, "category": category})
+    section_header, link = course_content[section_number]
+    return render(request, "course.html", {"header": section_header, "link": link, "course_name": course_name, "course_number": course_number, "category": category})
 
 
 @login_required(login_url="/login")

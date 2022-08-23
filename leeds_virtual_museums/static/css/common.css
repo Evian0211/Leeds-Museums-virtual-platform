@@ -7,6 +7,10 @@ html, body {
     min-height: 100%;
 }
 
+#main-div {
+    min-height: 100%;
+}
+
 .footer {
     text-align: center;
     margin-top: 100px;
@@ -20,4 +24,16 @@ html, body {
 #introduction {
     text-align: center;
     background-color: aqua;
+}
+
+#course {
+    height: 100%;
+    min-height: 700px;
+    width: 100%;
+}
+
+iframe {
+    height: 100%;
+    position: absolute;
+    border: none;
 }
