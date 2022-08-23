@@ -1,5 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <h1>Plan Your Visit</h1>
+
+<h3>Tickets you can exchange</h3>
+{% for ticket, item in available.items %}
+<form method="POST" action="">
+    <label name="ticket">Ticket name: {{ ticket }}</label>
+    <label name="item">Required item: {{ item }}</label>
+    <input type="submit" name="submit" value="Exchange">
+</form>
+{% endfor %}
+
+<h3>Tickets you cannot exchange</h3>
+{% for ticket, item in unavailable.items %}
+<div>
+    <span name="ticket">Ticket name: {{ ticket }}</span>
+    <span name="item">Required item: {{ item }}</span>
+</div>
+{% endfor %}
+
 {% endblock %}

@@ -64,3 +64,11 @@ COURSE_ONE_FULL_MARK = "The Artist"
 COURSE_TWO_FULL_MARK = "The Historian"
 COURSE_ONE_RECOMMANDED_PASS = "The Great Artist"
 COURSE_TWO_RECOMMANDED_PASS = "The Great Historian"
+
+# -----------------------------------------
+# ---------------- Tickets ----------------
+
+TICKETS = {
+    "Ticket 1": COURSE_ONE_FULL_MARK,
+    "Ticket 2": COURSE_TWO_FULL_MARK
+}

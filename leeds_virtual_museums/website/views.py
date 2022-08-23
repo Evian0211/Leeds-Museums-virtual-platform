@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
-from .text import EVALUATION_QUESTIONS, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE
+from .text import EVALUATION_QUESTIONS, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE, TICKETS
 from . import user
 
 # Create your views here.
@@ -139,4 +139,13 @@ def evaluation_quiz_view(request, *args, **kwargs):
 
 @login_required(login_url="/login")
 def plan_visit_view(request, *args, **kwargs):
-    return render(request, "plan_visit.html", {})
+    available_to_swap = {}
+    unavailable_to_swap = {}
+    user_items = user.get_all_items(request.user)
+    for ticket, item in TICKETS.items():
+        if item in user_items:
+            available_to_swap[ticket] = item
+        else:
+            unavailable_to_swap[ticket] = item
+
+    return render(request, "plan_visit.html", {"available": available_to_swap, "unavailable": unavailable_to_swap})

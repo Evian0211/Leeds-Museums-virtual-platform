@@ -6,6 +6,10 @@ class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
+class Ticket(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
 class Evaluation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     result = models.CharField(max_length=100)
