@@ -95,10 +95,12 @@ def evaluate(user):
         score[4] += 1
         score[5] += 1
 
+    print(score)
     max_interst = 0
     recommandation = ""
-    for i in len(score):
+    for i in range(0,len(score)):
         if score[i] > max_interst:
+            max_interst = score[i]
             recommandation = EVALUATION_TYPES[i]
     set_evaluation_result(user, recommandation)
 
