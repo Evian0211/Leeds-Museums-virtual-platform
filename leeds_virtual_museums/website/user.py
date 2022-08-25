@@ -1,5 +1,5 @@
-from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum
-from .text import CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES, COURSE_ONE_FULL_MARK
+from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum, Ticket
+from .text import CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES, COURSE_ONE_FULL_MARK, TICKETS
 
 def get_evaulation_result(user):
     try:
@@ -95,7 +95,6 @@ def evaluate(user):
         score[4] += 1
         score[5] += 1
 
-    print(score)
     max_interst = 0
     recommandation = ""
     for i in range(0,len(score)):
@@ -119,6 +118,20 @@ def get_all_items(user):
     for item in items:
         item_list.append(item.name)
     return item_list
+
+def get_all_tickets(user):
+    tickets = Ticket.objects.filter(user=user)
+    ticket_list = []
+    for ticket in tickets:
+        ticket_list.append(ticket.name)
+    return ticket_list
+
+def exchange_ticket(user, ticket, item):
+    if TICKETS[ticket] != item:
+        raise Exception("Ticket and the required item does not match.")
+    else:
+        Item.objects.get(user=user, name=item).delete()
+        Ticket(user=user, name=ticket).save()
 
 def get_curriculum_status(user):
     status = Curriculum.objects.filter(user=user)
@@ -163,11 +176,21 @@ def get_item(user, course_number, score):
     # TODO: Fill this logic
     got_item = False
     if course_number == 0 and score == 100:
-        try:
-            item = Item.objects.get(user=user, name=COURSE_ONE_FULL_MARK)
-        except:
-            item = Item(user=user, name=COURSE_ONE_FULL_MARK)
-            item.save()
-            got_item = True
+        item_name = COURSE_ONE_FULL_MARK
+    try:
+        item = Item.objects.get(user=user, name=item_name)
+    except:
+        tickets_owned = get_all_tickets(user)
+        for t, i in TICKETS.items():
+            if i == item_name:
+                if t in tickets_owned:
+                    # user had the item, and exchanged it to the a ticket
+                    break
+                else:
+                    # user never had the item
+                    item = Item(user=user, name=item_name)
+                    item.save()
+                    got_item = True
+                    break
 
     return got_item

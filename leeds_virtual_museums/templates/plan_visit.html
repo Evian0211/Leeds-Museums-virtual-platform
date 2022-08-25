@@ -6,10 +6,12 @@
 
 <h3>Tickets you can exchange</h3>
 {% for ticket, item in available.items %}
-<form method="POST" action="">
-    <label name="ticket">Ticket name: {{ ticket }}</label>
-    <label name="item">Required item: {{ item }}</label>
-    <input type="submit" name="submit" value="Exchange">
+<form method="POST" action=""> {% csrf_token %}
+    <label>Ticket name: {{ ticket }}</label>
+    <label>Required item: {{ item }}</label>
+    <input type="hidden" name="ticket" value="{{ticket}}">
+    <input type="hidden" name="item" value="{{item}}">
+    <input type="submit" name="exchange" value="Exchange">
 </form>
 {% endfor %}
 
