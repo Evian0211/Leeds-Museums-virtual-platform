@@ -20,12 +20,12 @@
             {% else %}
             <form method="POST" action=""> {% csrf_token %}
             {% endif %}
-                <label for="answer">{{ question }}</label>
-                <select name="answer">
-                    {% for option in choices %}
-                    <option value="{{ forloop.counter0 }}">{{ option }}</option>
-                    {% endfor %}
-                </select>
+                <label>{{ question }}</label>
+                <br>
+                {% for option in choices %}
+                <input type="radio" name="answer" value="{{ forloop.counter0 }}">{{ option }}
+                <br>
+                {% endfor %}
                 <input type="hidden" value="{{ this }}" name="this">
                 {% if next != -1 %}
                 <input type="submit" value="Next" name="next">

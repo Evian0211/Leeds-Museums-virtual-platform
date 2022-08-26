@@ -3,18 +3,32 @@
 {% block content %}
 
 <div class="container main-container">
-    <h1>Curriculum page</h1>
+    <h1>Curriculum</h1>
 
+    <br>
     {% if recommandation %}
     <h3>Recommanded for you</h3>
-    <a href="/course?course={{ course_number }}">{{ recommandation }}</a>
+    <div class="card curriculum">
+        <img class="card-img-top" src="{% static '/images/the_artist.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{ recommandation }}</h5>
+            <a class="btn btn-primary" href="/course?course={{ course_number }}">Explore</a>
+        </div>
+    </div>
     {% else %}
     <a href="/evaluation">Take the evaluation quiz</a> to find what course suits you best!
     {% endif %}
     
+    <br>
     <h3>Other courses</h3>
     {% for course_num, course_name, _, _ in other_courses %}
-    <a href="/course?course={{ course_num }}">{{ course_name }}</a>
+    <div class="card curriculum">
+        <img class="card-img-top" src="{% static '/images/the_artist.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{ course_name }}</h5>
+            <a class="btn btn-primary" href="/course?course={{ course_num }}">Explore</a>
+        </div>
+    </div>
 </div>
 
 {% endfor %}

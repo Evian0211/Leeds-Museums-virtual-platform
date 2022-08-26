@@ -163,7 +163,7 @@ def mark_course(user, course_number):
     score = 100
 
     try:
-        old_result = Evaluation.objects.get(user=user, course=course)
+        old_result = Curriculum.objects.get(user=user, course=course)
         old_result.delete()
     except:
         pass
@@ -175,7 +175,7 @@ def mark_course(user, course_number):
 def get_item(user, course_number, score):
     # TODO: Fill this logic
     got_item = False
-    
+
     item_name = None
     if course_number == 0 and score == 100:
         item_name = COURSE_ONE_FULL_MARK

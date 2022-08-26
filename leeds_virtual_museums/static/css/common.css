@@ -31,6 +31,10 @@ html, body {
     margin-bottom: 100px;
 }
 
+.curriculum {
+    width: 18rem;
+}
+
 iframe {
     height: 100%;
     position: absolute;
@@ -51,4 +55,5 @@ nav {
 
 .main-container {
     padding-top: 40px;
+    padding-bottom: 50px;
 }
