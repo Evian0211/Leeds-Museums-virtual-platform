@@ -2,18 +2,21 @@
 {% load static %}
 {% block content %}
 
-<h1 class="title">Curriculum page</h1>
+<div class="container main-container">
+    <h1>Curriculum page</h1>
 
-{% if recommandation %}
-<h3>Recommanded for you</h3>
-<a href="/course?course={{ course_number }}">{{ recommandation }}</a>
-{% else %}
-<a href="/evaluation">Take the evaluation quiz</a> to find what course suits you best!
-{% endif %}
+    {% if recommandation %}
+    <h3>Recommanded for you</h3>
+    <a href="/course?course={{ course_number }}">{{ recommandation }}</a>
+    {% else %}
+    <a href="/evaluation">Take the evaluation quiz</a> to find what course suits you best!
+    {% endif %}
+    
+    <h3>Other courses</h3>
+    {% for course_num, course_name, _, _ in other_courses %}
+    <a href="/course?course={{ course_num }}">{{ course_name }}</a>
+</div>
 
-<h3>Other courses</h3>
-{% for course_num, course_name, _, _ in other_courses %}
-<a href="/course?course={{ course_num }}">{{ course_name }}</a>
 {% endfor %}
 
 {% endblock %}

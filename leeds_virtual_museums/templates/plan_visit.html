@@ -2,25 +2,28 @@
 {% load static %}
 {% block content %}
 
-<h1>Plan Your Visit</h1>
+<div class="container main-container">
+    <h1>Plan Your Visit</h1>
 
-<h3>Tickets you can exchange</h3>
-{% for ticket, item in available.items %}
-<form method="POST" action=""> {% csrf_token %}
-    <label>Ticket name: {{ ticket }}</label>
-    <label>Required item: {{ item }}</label>
-    <input type="hidden" name="ticket" value="{{ticket}}">
-    <input type="hidden" name="item" value="{{item}}">
-    <input type="submit" name="exchange" value="Exchange">
-</form>
-{% endfor %}
-
-<h3>Tickets you cannot exchange</h3>
-{% for ticket, item in unavailable.items %}
-<div>
-    <span name="ticket">Ticket name: {{ ticket }}</span>
-    <span name="item">Required item: {{ item }}</span>
+    <h3>Tickets you can exchange</h3>
+    {% for ticket, item in available.items %}
+    <form method="POST" action=""> {% csrf_token %}
+        <label>Ticket name: {{ ticket }}</label>
+        <label>Required item: {{ item }}</label>
+        <input type="hidden" name="ticket" value="{{ticket}}">
+        <input type="hidden" name="item" value="{{item}}">
+        <input type="submit" name="exchange" value="Exchange">
+    </form>
+    {% endfor %}
+    
+    <h3>Tickets you cannot exchange</h3>
+    {% for ticket, item in unavailable.items %}
+    <div>
+        <span name="ticket">Ticket name: {{ ticket }}</span>
+        <span name="item">Required item: {{ item }}</span>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
 
 {% endblock %}

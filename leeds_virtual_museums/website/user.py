@@ -175,22 +175,26 @@ def mark_course(user, course_number):
 def get_item(user, course_number, score):
     # TODO: Fill this logic
     got_item = False
+    
+    item_name = None
     if course_number == 0 and score == 100:
         item_name = COURSE_ONE_FULL_MARK
-    try:
-        item = Item.objects.get(user=user, name=item_name)
-    except:
-        tickets_owned = get_all_tickets(user)
-        for t, i in TICKETS.items():
-            if i == item_name:
-                if t in tickets_owned:
-                    # user had the item, and exchanged it to the a ticket
-                    break
-                else:
-                    # user never had the item
-                    item = Item(user=user, name=item_name)
-                    item.save()
-                    got_item = True
-                    break
+    
+    if item_name:
+        try:
+            item = Item.objects.get(user=user, name=item_name)
+        except:
+            tickets_owned = get_all_tickets(user)
+            for t, i in TICKETS.items():
+                if i == item_name:
+                    if t in tickets_owned:
+                        # user had the item, and exchanged it to the a ticket
+                        break
+                    else:
+                        # user never had the item
+                        item = Item(user=user, name=item_name)
+                        item.save()
+                        got_item = True
+                        break
 
     return got_item

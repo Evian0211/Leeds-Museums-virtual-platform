@@ -2,8 +2,10 @@
 {% load static %}
 {% block content %}
 
-<h1>Evaluation page</h1>
-<p>{{ evaluation_result }}</p>
-<a href="/evaluation_quiz?question=0" class="btn btn-primary">Go to quiz</a>
+<div class="container main-container">
+    <h1>Evaluation page</h1>
+    <p>{{ evaluation_result }}</p>
+    <a href="/evaluation_quiz?question=0" class="btn btn-primary">Go to quiz</a>
+</div>
 
 {% endblock %}

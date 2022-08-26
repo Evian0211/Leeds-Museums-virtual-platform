@@ -12,6 +12,9 @@ from . import user
 
 # Create your views here.
 def login_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        logout(request)
+        redirect("/login")
     if request.method == "POST":
         if request.POST.get("logout"):
             logout(request)
@@ -100,13 +103,14 @@ def course_question_view(request, *args, **kwargs):
             q_number = int(request.GET.get("question"))
         else:
             q_number = 0
-        _, _, _, questions = CURRICULUM[course_number]
+        _, _, course_content, questions = CURRICULUM[course_number]
+        category = [header for header, _ in course_content]
         (question_text, choices) = questions[q_number]
         if q_number < len(questions) - 1:
             next = q_number + 1
         else:
             next = -1
-        return render(request, "course_question.html", {"course_number": course_number, "this": q_number, "next": next, "question": question_text, "choices": choices})
+        return render(request, "course_question.html", {"course_number": course_number, "this": q_number, "next": next, "question": question_text, "choices": choices, "category": category})
 
 
 @login_required(login_url="/login")

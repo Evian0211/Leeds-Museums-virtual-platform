@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>Evaluation Quiz</h1>
 
-{% if next != -1 %}
-<form method="POST" action="/evaluation_quiz?question={{ next }}"> {% csrf_token %}
-{% else %}
-<form method="POST" action=""> {% csrf_token %}
-{% endif %}
-    <label for="answer">{{ question }}</label>
-    <select name="answer">
-        {% for option in choices %}
-        <option value="{{ forloop.counter0 }}">{{ option }}</option>
-        {% endfor %}
-    </select>
-    <input type="hidden" value="{{ this }}" name="this">
+<div class="container main-container">
+    <h1>Evaluation Quiz</h1>
+
     {% if next != -1 %}
-    <input type="submit" value="Next" name="next">
+    <form method="POST" action="/evaluation_quiz?question={{ next }}"> {% csrf_token %}
     {% else %}
-    <input type="submit" value="Submit" name="submit">
+    <form method="POST" action=""> {% csrf_token %}
     {% endif %}
-</form>
-
+        <label>{{ question }}</label>
+        <br>
+        {% for option in choices %}
+        <input type="radio" name="answer" value="{{ forloop.counter0 }}">{{ option }}
+        <br>
+        {% endfor %}
+        <input type="hidden" value="{{ this }}" name="this">
+        {% if next != -1 %}
+        <input type="submit" value="Next" name="next">
+        {% else %}
+        <input type="submit" value="Submit" name="submit">
+        {% endif %}
+    </form>
+</div>
 
 {% endblock %}
