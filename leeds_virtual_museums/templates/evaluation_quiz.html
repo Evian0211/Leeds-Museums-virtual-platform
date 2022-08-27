@@ -13,7 +13,7 @@
         <label>{{ question }}</label>
         <br>
         {% for option in choices %}
-        <input type="radio" name="answer" value="{{ forloop.counter0 }}">{{ option }}
+        <input type="radio" name="answer" value="{{ forloop.counter0 }}" required>{{ option }}
         <br>
         {% endfor %}
         <input type="hidden" value="{{ this }}" name="this">
