@@ -94,7 +94,8 @@ def course_question_view(request, *args, **kwargs):
                 user.update_course_quiz_answer(request.user, course_number, request.POST.get("this"), int(request.POST.get("answer")))
                 score = user.mark_course(request.user, course_number)
                 user.clear_course_quiz_answers(request.user, course_number)
-                user.get_item(request.user, course_number, score)
+                got_item = user.get_item(request.user, course_number, score)
+                return render(request, "quiz_result.html", {"quiz_result": score, "got_item": got_item})
                 # TODO: create a course quiz result page
                 return redirect("/")
             elif request.POST.get("next"):
@@ -116,9 +117,11 @@ def course_question_view(request, *args, **kwargs):
 @login_required(login_url="/login")
 def evaluation_view(request, *args, **kwargs):
     evaluation_result = user.get_evaulation_result(request.user)
+    evaluated = True
     if not evaluation_result:
         evaluation_result = NO_EVALUATION_TEXT
-    return render(request, "evaluation.html", {"evaluation_result": evaluation_result})
+        evaluated = False
+    return render(request, "evaluation.html", {"evaluation_result": evaluation_result, "evaluated": evaluated})
 
 
 @login_required(login_url="/login")

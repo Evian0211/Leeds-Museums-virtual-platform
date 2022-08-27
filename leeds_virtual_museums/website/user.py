@@ -1,5 +1,5 @@
 from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum, Ticket
-from .text import CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES, COURSE_ONE_FULL_MARK, TICKETS
+from .text import COURSE_TWO_FULL_MARK, CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES, COURSE_ONE_FULL_MARK, TICKETS
 
 def get_evaulation_result(user):
     try:
@@ -179,6 +179,8 @@ def get_item(user, course_number, score):
     item_name = None
     if course_number == 0 and score == 100:
         item_name = COURSE_ONE_FULL_MARK
+    elif course_number == 1 and score == 100:
+        item_name = COURSE_TWO_FULL_MARK
     
     if item_name:
         try:

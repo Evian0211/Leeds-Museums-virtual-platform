@@ -4,24 +4,28 @@
 
 <div class="container main-container">
     <h1>Plan Your Visit</h1>
-
+    <br>
     <h3>Tickets you can exchange</h3>
     {% for ticket, item in available.items %}
-    <form method="POST" action=""> {% csrf_token %}
-        <label>Ticket name: {{ ticket }}</label>
+    <div class="card exchange border-0">
+        <label>Ticket: {{ ticket }}</label>
         <label>Required item: {{ item }}</label>
-        <input type="hidden" name="ticket" value="{{ticket}}">
-        <input type="hidden" name="item" value="{{item}}">
-        <input type="submit" name="exchange" value="Exchange">
-    </form>
+        <form method="POST" action=""> {% csrf_token %}
+            <input type="hidden" name="ticket" value="{{ticket}}">
+            <input type="hidden" name="item" value="{{item}}">
+            <input class="btn btn-primary" type="submit" name="exchange" value="Exchange">
+        </form>
+    </div>
     {% endfor %}
-    
-    <h3>Tickets you cannot exchange</h3>
+    <br>
+    <h3>More tickets</h3>
     {% for ticket, item in unavailable.items %}
     <div>
-        <span name="ticket">Ticket name: {{ ticket }}</span>
+        <span name="ticket">Ticket: {{ ticket }}</span>
         <span name="item">Required item: {{ item }}</span>
     </div>
+    {% empty %}
+    <p>Come back later for more event tickets!</p>
     {% endfor %}
 </div>
 

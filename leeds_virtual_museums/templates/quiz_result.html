@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container main-container">
+    <h1>Quiz Result</h1>
+    <p>My quiz result: {{ quiz_result }}</p>
+    {% if got_item %}
+        <br>
+        <p>Well done! You got a new item!</p>
+        <a class="btn btn-primary" href="/account">Check my items</a>
+    {% endif %}
+</div>
+
+{% endblock %}

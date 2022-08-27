@@ -3,25 +3,39 @@
 {% block content %}
 
 <div class="container main-container">
-    <h1>Account page</h1>
+    <h1>My Account</h1>
 
-    <h3>My scores</h3>
+    <h3>Scores</h3>
     {% for course, score in curriculum_status %}
     <span>{{course}}: {{score}}</span>
+    <br>
     {% endfor %}
+    <br>
+
+    <h3>Items</h3>
+    <div class="row">
+        {% for item in items %}
+        <div class="card ticket border-0 col-2">
+            <h5 class="card-title">{{item}}</h5>
+            <img src="{% static 'images/the_artist.jpg' %}" width="100px" height="100px"> 
+        </div>
+        {% endfor %}
+    </div>
     
-    <h3>My items</h3>
-    {% for item in items %}
-    <img src="{% static 'images/the_artist.jpg' %}" width="100px" height="100px">
-    <span>{{item}}</span>
-    {% endfor %}
-    
-    <h3>My tickets</h3>
-    {% for ticket in tickets %}
-    <span>{{ticket}}</span>
-    <!-- <img src="{% static 'images/the_artist.jpg' %}" width="100px" height="100px"> -->
-    <div class="tenor-gif-embed" data-postid="18576121" data-share-method="host" data-aspect-ratio="1.25" data-width="150px"><a href="https://tenor.com/view/art-painting-gif-18576121">Art Painting GIF</a>from <a href="https://tenor.com/search/art-gifs">Art GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <br>
+    <h3>Tickets</h3>
+    <div class="row">
+        {% for ticket in tickets %}
+        <div class="card ticket border-0 col-2">
+            <h5 class="card-title">{{ticket}}</h5>
+            <!-- <img src="{% static 'images/the_artist.jpg' %}" width="100px" height="100px"> -->
+            <div class="tenor-gif-embed" data-postid="18576121" data-share-method="host" data-aspect-ratio="1.25" data-width="150px">
+                <a href="https://tenor.com/view/art-painting-gif-18576121">Art Painting GIF</a>
+            </div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+        {% endfor %}
+    </div>
 </div>
-{% endfor %}
+
 
 {% endblock %}

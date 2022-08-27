@@ -33,6 +33,19 @@ html, body {
 
 .curriculum {
     width: 18rem;
+    margin: 30px;
+}
+
+.ticket {
+    width: 10rem;
+    border-color: transparent;
+    margin: 10px;
+}
+
+.exchange {
+    width: 20rem;
+    border-color: transparent;
+    margin: 10px;
 }
 
 iframe {
