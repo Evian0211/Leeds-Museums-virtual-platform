@@ -5,10 +5,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.template.defaulttags import register
 
 from .models import Item
-from .text import EVALUATION_QUESTIONS, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE, TICKETS
+from .text import COURSE_PICTURE, EVALUATION_QUESTIONS, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE, TICKETS
 from . import user
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 # Create your views here.
 def login_view(request, *args, **kwargs):
@@ -63,7 +68,7 @@ def curriculum_view(request, *args, **kwargs):
     else:
         course_number, course_name = None, None
         other_courses = CURRICULUM
-    return render(request, "curriculum.html", {"recommandation": course_name, "course_number": course_number, "other_courses": other_courses})
+    return render(request, "curriculum.html", {"recommandation": course_name, "course_number": course_number, "other_courses": other_courses, "pic_files": COURSE_PICTURE})
 
 
 @login_required(login_url="/login")

@@ -2,28 +2,35 @@
 {% load static %}
 {% block content %}
 
-<h1>Login page</h1>
-{% if status != null %}
-<div id="login_failed_block">
-    <p>{{ status }}</p>
+<div class="container main-container">
+    <h1>Login</h1>
+
+    <p>
+        This website is not available for the public if you have an account, please login.
+    </p>
+    {% if status != null %}
+    <div id="login_failed_block">
+        <p>{{ status }}</p>
+    </div>
+    
+    {% endif %}
+    <div id="login_block">
+        <form method="POST" action=""> {% csrf_token %}
+            <p>Username: <input type="text" name="username" required></p>
+            <p>Password: <input type="text" name="password" required></p>
+            <input type="submit" value="login" name="login">
+        </form>
+    </div>
+    
+    <!-- <div id="register_block">
+        <form method="POST" action=""> {% csrf_token %}
+            <p>Username: <input type="text" name="username" required></p>
+            <p>Password: <input type="text" name="password" required></p>
+            <p>Confirm password: <input type="text" name="confirm_password" required></p>
+            <input type="submit" value="register" name="register">
+        </form>
+    </div> -->
 </div>
 
-{% endif %}
-<div id="login_block">
-    <form method="POST" action=""> {% csrf_token %}
-        <p>Username: <input type="text" name="username" required></p>
-        <p>Password: <input type="text" name="password" required></p>
-        <input type="submit" value="login" name="login">
-    </form>
-</div>
-
-<div id="register_block">
-    <form method="POST" action=""> {% csrf_token %}
-        <p>Username: <input type="text" name="username" required></p>
-        <p>Password: <input type="text" name="password" required></p>
-        <p>Confirm password: <input type="text" name="confirm_password" required></p>
-        <input type="submit" value="register" name="register">
-    </form>
-</div>
 
 {% endblock %}
