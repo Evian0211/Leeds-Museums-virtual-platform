@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.template.defaulttags import register
 
 from .models import Item
-from .text import COURSE_PICTURE, EVALUATION_QUESTIONS, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE, TICKETS
+from .text import COURSE_PICTURE, EVALUATION_QUESTIONS, ITEM_PICTURE, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE, TICKET_PICTURE, TICKETS
 from . import user
 
 @register.filter
@@ -55,7 +55,7 @@ def account_view(request, *args, **kwargs):
     curriculum_status = user.get_curriculum_status(request.user)
     items = user.get_all_items(request.user)
     tickets = user.get_all_tickets(request.user)
-    return render(request, "account.html", {"curriculum_status": curriculum_status, "items": items, "tickets": tickets})
+    return render(request, "account.html", {"curriculum_status": curriculum_status, "items": items, "items_pic": ITEM_PICTURE, "tickets": tickets, "tickets_pic": TICKET_PICTURE})
 
 
 @login_required(login_url="/login")
@@ -167,10 +167,11 @@ def plan_visit_view(request, *args, **kwargs):
     user_items = user.get_all_items(request.user)
     user_tickets = user.get_all_tickets(request.user)
     for ticket, item in TICKETS.items():
-        if item in user_items:
-            available_to_swap[ticket] = item
+        intersection = [i for i in item if i in user_items]
+        if intersection:
+            available_to_swap[ticket] = intersection[0]
         else:
             if ticket not in user_tickets:
                 unavailable_to_swap[ticket] = item
 
-    return render(request, "plan_visit.html", {"available": available_to_swap, "unavailable": unavailable_to_swap})
+    return render(request, "plan_visit.html", {"available": available_to_swap, "unavailable": unavailable_to_swap, "tickets_pic": TICKET_PICTURE})

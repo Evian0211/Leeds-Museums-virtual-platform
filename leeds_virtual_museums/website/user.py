@@ -1,5 +1,5 @@
-from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum, Ticket
-from .text import COURSE_TWO_FULL_MARK, CURRICULUM, EVALUATION_QUESTIONS, EVALUATION_TYPES, COURSE_ONE_FULL_MARK, TICKETS
+from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum, Ticket, User_status
+from .text import *
 
 def get_evaulation_result(user):
     try:
@@ -8,6 +8,17 @@ def get_evaulation_result(user):
     except:
         evaluation = None
     return evaluation
+
+def got_recommended_item(user):
+    try:
+        status = User_status.objects.get(user=user)
+        return status.got_recommended_item
+    except:
+        return False
+
+def update_user_status(user):
+    status = User_status(user, True)
+    status.save()
 
 def update_evaluation_quiz_answer(user, q_number, answer):
     try:
@@ -173,30 +184,36 @@ def mark_course(user, course_number):
     return score
 
 def get_item(user, course_number, score):
-    # TODO: Fill this logic
     got_item = False
 
-    item_name = None
+    item_names = []
+    _, course_name, _, _ = CURRICULUM[course_number]
     if course_number == 0 and score == 100:
-        item_name = COURSE_ONE_FULL_MARK
+        if get_evaulation_result(user) == course_name:
+            item_names.append(COURSE_ONE_RECOMMANDED_PASS)
     elif course_number == 1 and score == 100:
-        item_name = COURSE_TWO_FULL_MARK
+        if get_evaulation_result(user) == course_name:
+            item_names.append(COURSE_TWO_RECOMMANDED_PASS)
+    elif course_number == 2 and score == 100:
+        if get_evaulation_result(user) == course_name:
+            item_names.append(COURSE_THREE_RECOMMANDED_PASS)
+    elif course_number == 3 and score == 100:
+        if get_evaulation_result(user) == course_name:
+            item_names.append(COURSE_FOUR_RECOMMANDED_PASS)
+    elif course_number == 4 and score == 100:
+        if get_evaulation_result(user) == course_name:
+            item_names.append(COURSE_FIVE_RECOMMANDED_PASS)
+    elif course_number == 5 and score == 100:
+        if get_evaulation_result(user) == course_name:
+            item_names.append(COURSE_SIX_RECOMMANDED_PASS)
     
-    if item_name:
-        try:
-            item = Item.objects.get(user=user, name=item_name)
-        except:
-            tickets_owned = get_all_tickets(user)
-            for t, i in TICKETS.items():
-                if i == item_name:
-                    if t in tickets_owned:
-                        # user had the item, and exchanged it to the a ticket
-                        break
-                    else:
-                        # user never had the item
-                        item = Item(user=user, name=item_name)
-                        item.save()
-                        got_item = True
-                        break
+    for item_name in item_names:
+        if got_recommended_item(user):
+            pass
+        else:
+            item = Item(user=user, name=item_name)
+            item.save()
+            got_item = True
+            update_user_status(user)
 
     return got_item

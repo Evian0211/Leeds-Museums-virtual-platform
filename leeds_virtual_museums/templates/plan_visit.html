@@ -6,9 +6,11 @@
     <h1>Plan Your Visit</h1>
     <br>
     <h3>Tickets you can exchange</h3>
+    <br>
     {% for ticket, item in available.items %}
     <div class="card exchange border-0">
-        <label>Ticket: {{ ticket }}</label>
+        <h5 class="card-title">{{ticket}}</h5>
+        <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px"> 
         <label>Required item: {{ item }}</label>
         <form method="POST" action=""> {% csrf_token %}
             <input type="hidden" name="ticket" value="{{ticket}}">
@@ -16,13 +18,13 @@
             <input class="btn btn-primary" type="submit" name="exchange" value="Exchange">
         </form>
     </div>
+    <br>
     {% endfor %}
     <br>
     <h3>More tickets</h3>
     {% for ticket, item in unavailable.items %}
     <div>
         <span name="ticket">Ticket: {{ ticket }}</span>
-        <span name="item">Required item: {{ item }}</span>
     </div>
     {% empty %}
     <p>Come back later for more event tickets!</p>

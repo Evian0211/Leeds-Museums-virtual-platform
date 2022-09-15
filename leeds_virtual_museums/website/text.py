@@ -197,12 +197,12 @@ RECOMMAND_COURSE = {
 # -----------------------------------------
 # ---------------- Items ------------------
 
-COURSE_ONE_FULL_MARK = "Leeds Historian"
-COURSE_TWO_FULL_MARK = "Leeds Warologist"
-COURSE_THREE_FULL_MARK = "Leeds Artist"
-COURSE_FOUR_FULL_MARK = "Leeds Economist"
-COURSE_FIVE_FULL_MARK = "Leeds Sociologist"
-COURSE_SIX_FULL_MARK = "Leeds Political Scientist"
+# COURSE_ONE_FULL_MARK = "Leeds Historian"
+# COURSE_TWO_FULL_MARK = "Leeds Warologist"
+# COURSE_THREE_FULL_MARK = "Leeds Artist"
+# COURSE_FOUR_FULL_MARK = "Leeds Economist"
+# COURSE_FIVE_FULL_MARK = "Leeds Sociologist"
+# COURSE_SIX_FULL_MARK = "Leeds Political Scientist"
 COURSE_ONE_RECOMMANDED_PASS = "The Great Historian"
 COURSE_TWO_RECOMMANDED_PASS = "The Great Warologist"
 COURSE_THREE_RECOMMANDED_PASS = "The Great Artist"
@@ -210,13 +210,26 @@ COURSE_FOUR_RECOMMANDED_PASS = "The Great Economist"
 COURSE_FIVE_RECOMMANDED_PASS = "The Great Sociologist"
 COURSE_SIX_RECOMMANDED_PASS = "The Great Political Scientist"
 
+ITEM_PICTURE = {
+    COURSE_ONE_RECOMMANDED_PASS: "Historian item.jpeg",
+    COURSE_TWO_RECOMMANDED_PASS: "War item.jpg",
+    COURSE_THREE_RECOMMANDED_PASS: "artist item.jpg",
+    COURSE_FOUR_RECOMMANDED_PASS: "Economist item.jpg",
+    COURSE_FIVE_RECOMMANDED_PASS: "Sociologist item.jpg",
+    COURSE_SIX_RECOMMANDED_PASS: "Political scientist item.jpg"
+}
+
 # -----------------------------------------
 # ---------------- Tickets ----------------
 
 TICKETS = {
-    "Ticket 1": COURSE_ONE_FULL_MARK,
-    "Ticket 2": COURSE_TWO_FULL_MARK
+    "Art Workshop": [COURSE_ONE_RECOMMANDED_PASS, COURSE_TWO_RECOMMANDED_PASS, COURSE_THREE_RECOMMANDED_PASS, COURSE_FOUR_RECOMMANDED_PASS, COURSE_FIVE_RECOMMANDED_PASS, COURSE_SIX_RECOMMANDED_PASS],
+    "Rocks and Fossils Discovery": [COURSE_ONE_RECOMMANDED_PASS, COURSE_TWO_RECOMMANDED_PASS, COURSE_THREE_RECOMMANDED_PASS, COURSE_FOUR_RECOMMANDED_PASS, COURSE_FIVE_RECOMMANDED_PASS, COURSE_SIX_RECOMMANDED_PASS],
+    "Traditional Tales and Rhymes": [COURSE_ONE_RECOMMANDED_PASS, COURSE_TWO_RECOMMANDED_PASS, COURSE_THREE_RECOMMANDED_PASS, COURSE_FOUR_RECOMMANDED_PASS, COURSE_FIVE_RECOMMANDED_PASS, COURSE_SIX_RECOMMANDED_PASS]
 }
 
-# -----------------------------------------
-# ---------------- Images -----------------
+TICKET_PICTURE = {
+    "Art Workshop": "art workshop ticket.jpg",
+    "Rocks and Fossils Discovery": "Rocks and Fossils discovery ticket.jpg",
+    "Traditional Tales and Rhymes": "traditional tales and rhymes event ticket.jpg"
+}
