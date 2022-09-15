@@ -4,10 +4,14 @@
 
 <div class="container main-container">
     <h1>Quiz Result</h1>
-    <p>My quiz result: {{ quiz_result }}</p>
+    <h5>My score: {{ quiz_result }}</h5>
+    {% if quiz_result == 100 %}
+        <br>
+        <p>Well done!</p>
+    {% endif %}
     {% if got_item %}
         <br>
-        <p>Well done! You got a new item!</p>
+        <p>You got a new item!</p>
         <a class="btn btn-primary" href="/account">Check my items</a>
     {% endif %}
 </div>

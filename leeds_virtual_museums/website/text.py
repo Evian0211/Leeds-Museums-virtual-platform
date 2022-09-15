@@ -176,6 +176,15 @@ CURRICULUM = [
     (5, COURSE_SIX_NAME, COURSE_SIX_CONTENT, COURSE_SIX_QUESTIONS)
 ]
 
+COURSE_QUIZ_ANSWER = [
+    [0,3,2,0,1,3],
+    [1,2,1,1,0],
+    [1,1,0,2,3,0],
+    [1,2,2,0,0],
+    [1,2,0,2,1,2],
+    [0,1,2,1,0]
+]
+
 COURSE_PICTURE = {
     0: "Course 1.jpg", 
     1: "Course 2.jpg", 

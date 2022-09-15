@@ -27,9 +27,10 @@
     <h3>Tickets</h3>
     <div class="row">
         {% for ticket in tickets %}
-        <div class="card ticket border-0 col-3 bg-transparent">
-            <h5 class="card-title">{{ticket}}</h5>
-            <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px"> 
+        <div class="card ticket col-3 bg-secondary">
+            <h5 class="card-title opacity-100">{{ticket}}</h5>
+            <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px">
+            <span>Present this ticket on your arrival</span> 
         </div>
         {% endfor %}
     </div>

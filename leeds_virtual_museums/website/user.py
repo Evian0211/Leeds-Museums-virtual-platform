@@ -1,3 +1,4 @@
+from tkinter.messagebox import QUESTION
 from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum, Ticket, User_status
 from .text import *
 
@@ -170,8 +171,13 @@ def clear_course_quiz_answers(user, course_number):
 
 def mark_course(user, course_number):
     _, course, _, _ = CURRICULUM[course_number]
-    # TODO: Fill this logic
-    score = 100
+    answers = COURSE_QUIZ_ANSWER[course_number]
+    user_choices = Course_quiz_answer.objects.filter(user=user, course=course)
+    corrects = 0
+    for choice in user_choices:
+        if choice.answer == answers[choice.question]:
+            corrects += 1
+    score = int(100 * (corrects/len(answers)))
 
     try:
         old_result = Curriculum.objects.get(user=user, course=course)
@@ -180,7 +186,6 @@ def mark_course(user, course_number):
         pass
     result = Curriculum(user=user, course=course, score=score)
     result.save()
-
     return score
 
 def get_item(user, course_number, score):
