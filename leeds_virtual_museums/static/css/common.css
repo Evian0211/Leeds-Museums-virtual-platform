@@ -70,11 +70,24 @@ nav {
     padding-bottom: 50px;
 }
 
-#account-header {
-    height: 800px;
+#account-background {
+    height: 100%;
     width: 100%;
-    background-image: url(../images/account\ background.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background-color: #A2AD9A;
+}
+
+#account-header {
+    height: 300px;
+    width: 100%;
+    background-color: #0d4548;
+    text-align: center;
+    padding: 90px 0;
     color: white;
+}
+
+.account-block {
+    border-radius: 8px;
+    background-color: #CED2C2;
+    margin: 20px;
+    padding: 15px;
 }

@@ -2,37 +2,46 @@
 {% load static %}
 {% block content %}
 
-<header id="account-header">
-<div class="container main-container">
-    <h1>My Account</h1>
-
-    <h3>Scores</h3>
-    {% for course, score in curriculum_status %}
-    <span>{{course}}: {{score}}</span>
-    <br>
-    {% endfor %}
-    <br>
-
-    <h3>Items</h3>
-    <div class="row">
-        {% for item in items %}
-        <div class="card ticket border-0 col-3 bg-transparent">
-            <h5 class="card-title">{{item}}</h5>
-            <img src="{% static 'images/' %}{{ items_pic|get_item:item }}" width="100px" height="100px"> 
-        </div>
-        {% endfor %}
+<header id="account-background">
+    <div id="account-header" class="shadow-lg">
+        <h1 style="font-size: 80px; font-family: sans-serif;">Account</h1>
     </div>
-    
-    <br>
-    <h3>Tickets</h3>
+
+<div class="container main-container">
+
     <div class="row">
-        {% for ticket in tickets %}
-        <div class="card ticket col-3 bg-secondary">
-            <h5 class="card-title opacity-100">{{ticket}}</h5>
-            <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px">
-            <span>Present this ticket on your arrival</span> 
+        <div class="account-block col-5 shadow">
+            <h3>Event Tickets</h3>
+            {% for ticket in tickets %}
+            <div class="card ticket col-10 bg-secondary">
+                <h5 class="card-title opacity-100">{{ticket}}</h5>
+                <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px">
+                <span>Present this ticket on your arrival</span> 
+            </div>
+            {% endfor %}
+            <br>
         </div>
-        {% endfor %}
+        <div class="col-6">
+            <div class="account-block shadow">
+                <h3>Awards</h3>
+                <div class="row">
+                    {% for item in items %}
+                    <div class="card ticket border-0 col-3 bg-transparent">
+                        <h5 class="card-title">{{item}}</h5>
+                        <img src="{% static 'images/' %}{{ items_pic|get_item:item }}" width="100px" height="100px"> 
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div class="account-block shadow">
+                <h3>Quiz Results</h3>
+                {% for course, score in curriculum_status %}
+                <span>{{course}}: {{score}}</span>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 </header>
