@@ -121,11 +121,13 @@ def course_question_view(request, *args, **kwargs):
 @login_required(login_url="/login")
 def evaluation_view(request, *args, **kwargs):
     evaluation_result = user.get_evaulation_result(request.user)
-    evaluation_title = COURSE_TITLE[evaluation_result]
-    evaluated = True
     if not evaluation_result:
+        evaluation_title = None
         evaluation_result = NO_EVALUATION_TEXT
         evaluated = False
+    else:
+        evaluation_title = COURSE_TITLE[evaluation_result]
+        evaluated = True
     return render(request, "evaluation.html", {"evaluation_result": evaluation_result, "evaluation_title": evaluation_title, "evaluated": evaluated})
 
 

@@ -1,5 +1,3 @@
-from re import T
-from tkinter.messagebox import QUESTION
 from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum, Ticket, User_status
 from .text import *
 
@@ -19,7 +17,7 @@ def got_recommended_item(user):
         return False
 
 def update_user_status(user):
-    status = User_status(user, True)
+    status = User_status(user=user, got_recommended_item=True)
     status.save()
 
 def update_evaluation_quiz_answer(user, q_number, answer):
