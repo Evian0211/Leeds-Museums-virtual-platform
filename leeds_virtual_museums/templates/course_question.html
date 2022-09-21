@@ -3,35 +3,36 @@
 {% block content %}
 
 <div class="container main-container">
-    <div class="row">
-        <div class="col-3">
-            <h3>{{ course_name }}</h3>
+    <div class="row" style="padding-top: 30px;">
+        <div class="col-4">
+            <h4>{{ course_name }}</h4>
             {% for section in category %}
-            <a href="/course?course={{ course_number }}&section={{ forloop.counter0 }}">{{ section }}</a>
+            <a href="/course?course={{ course_number }}&section={{ forloop.counter0 }}" style="color: #0d4548;">{{ section }}</a>
             <br>
             {% endfor %}
-            <a href="/course?course={{ course_number }}&section=-1">Quiz</a>
+            <a href="/course?course={{ course_number }}&section=-1" style="color: #0d4548; font-size: 30px;">Quiz</a>
         </div>
     
     
-        <div class="col-9">
+        <div class="col-8" style="padding-left: 50px;">
             {% if next != -1 %}
             <form method="POST" action="/course_question?course={{ course_number }}&question={{ next }}"> {% csrf_token %}
             {% else %}
             <form method="POST" action=""> {% csrf_token %}
             {% endif %}
-                <label>{{ question }}</label>
-                <br>
+                <h4>{{ question }}</h4>
                 {% for option in choices %}
-                <input type="radio" name="answer" value="{{ forloop.counter0 }}" required>{{ option }}
-                <br>
+                <label class="choice"> {{ option }}
+                    <input type="radio" checked="checked" name="answer" value="{{ forloop.counter0 }}">
+                    <span class="checkmark"></span>
+                </label>
                 {% endfor %}
                 <input type="hidden" value="{{ this }}" name="this">
                 <br>
                 {% if next != -1 %}
-                <input type="submit" value="Next" name="next">
+                <input type="submit" value="Next" name="next" class="btn btn-primary">
                 {% else %}
-                <input type="submit" value="Submit" name="submit">
+                <input type="submit" value="Submit" name="submit" class="btn btn-primary">
                 {% endif %}
             </form>
         </div>

@@ -2,17 +2,25 @@
 {% load static %}
 {% block content %}
 
-<div class="container main-container">
-    <h1>Evaluation</h1>
-    <br>
-    {% if evaluated %}
-    <h5>The course for you: <a href="/curriculum">{{ evaluation_result }}</a></h5>
-    <br>
-    <a href="/evaluation_quiz?question=0" class="btn btn-primary">Evaluate again</a>
-    {% else %}
-    <h5>{{ evaluation_result }}</h5>
-    <a href="/evaluation_quiz?question=0" class="btn btn-primary">Evaluate now</a>
-    {% endif %}
+<div id="evaluation-header">
+    <div class="container main-container">
+        <h1 style="font-size: 100px; margin-top: 110px;">Evaluation</h1>
+        <br>
+        {% if evaluated %}
+        <h5>You have the potential to be a: </h5>
+        <br>
+        <h3>{{ evaluation_title }}</h3>
+        <br>
+        <h5>The course recommended for you: <br><br><a href="/curriculum">{{ evaluation_result }}</a></h5>
+        <br>
+        <a href="/evaluation_quiz?question=0" class="btn btn-secondary">Evaluate again</a>
+        {% else %}
+        <h5>{{ evaluation_result }}</h5>
+        <a href="/evaluation_quiz?question=0" class="btn btn-primary">Evaluate now</a>
+        {% endif %}
+    </div>
 </div>
+
+
 
 {% endblock %}

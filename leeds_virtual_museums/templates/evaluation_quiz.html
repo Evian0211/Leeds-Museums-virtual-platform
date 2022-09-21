@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 
-<div class="container main-container">
+<div class="container main-container" style="font-size: 150%;">
     <h1>Evaluation Quiz</h1>
-
+    <br>
     {% if next != -1 %}
     <form method="POST" action="/evaluation_quiz?question={{ next }}"> {% csrf_token %}
     {% else %}
@@ -13,15 +13,17 @@
         <label>{{ question }}</label>
         <br>
         {% for option in choices %}
-        <input type="radio" name="answer" value="{{ forloop.counter0 }}" required>{{ option }}
-        <br>
+        <label class="choice"> {{ option }}
+            <input type="radio" checked="checked" name="answer" value="{{ forloop.counter0 }}">
+            <span class="checkmark"></span>
+        </label>
         {% endfor %}
         <input type="hidden" value="{{ this }}" name="this">
         <br>
         {% if next != -1 %}
-        <input type="submit" value="Next" name="next">
+        <input type="submit" value="Next" name="next" class="btn btn-primary">
         {% else %}
-        <input type="submit" value="Submit" name="submit">
+        <input type="submit" value="Submit" name="submit" class="btn btn-primary">
         {% endif %}
     </form>
 </div>

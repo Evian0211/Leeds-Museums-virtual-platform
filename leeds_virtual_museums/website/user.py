@@ -1,3 +1,4 @@
+from re import T
 from tkinter.messagebox import QUESTION
 from .models import Course_quiz_answer, Item, Evaluation, Evaluation_quiz_answer, Curriculum, Ticket, User_status
 from .text import *
@@ -139,7 +140,7 @@ def get_all_tickets(user):
     return ticket_list
 
 def exchange_ticket(user, ticket, item):
-    if TICKETS[ticket] != item:
+    if item not in TICKETS[ticket]:
         raise Exception("Ticket and the required item does not match.")
     else:
         Item.objects.get(user=user, name=item).delete()
@@ -155,8 +156,8 @@ def get_curriculum_status(user):
 def update_course_quiz_answer(user, course_number, q_number, answer):
     _, course, _, _ = CURRICULUM[course_number]
     try:
-        answer = Course_quiz_answer.objects.get(user=user, course=course, question=q_number)
-        answer.delete()
+        old_answer = Course_quiz_answer.objects.get(user=user, course=course, question=q_number)
+        old_answer.delete()
     except:
         pass
 

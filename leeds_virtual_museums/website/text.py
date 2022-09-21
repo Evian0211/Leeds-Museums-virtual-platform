@@ -203,15 +203,25 @@ RECOMMAND_COURSE = {
     EVALUATION_TYPES[5]: CURRICULUM[5],
 }
 
+COURSE_ONE_TITLE = "Leeds Historian"
+COURSE_TWO_TITLE = "Leeds Warologist"
+COURSE_THREE_TITLE = "Leeds Artist"
+COURSE_FOUR_TITLE = "Leeds Economist"
+COURSE_FIVE_TITLE = "Leeds Sociologist"
+COURSE_SIX_TITLE = "Leeds Political Scientist"
+
+COURSE_TITLE = {
+    EVALUATION_TYPES[0]: COURSE_ONE_TITLE,
+    EVALUATION_TYPES[1]: COURSE_TWO_TITLE,
+    EVALUATION_TYPES[2]: COURSE_THREE_TITLE,
+    EVALUATION_TYPES[3]: COURSE_FOUR_TITLE,
+    EVALUATION_TYPES[4]: COURSE_FIVE_TITLE,
+    EVALUATION_TYPES[5]: COURSE_SIX_TITLE,
+}
+
 # -----------------------------------------
 # ---------------- Items ------------------
 
-# COURSE_ONE_FULL_MARK = "Leeds Historian"
-# COURSE_TWO_FULL_MARK = "Leeds Warologist"
-# COURSE_THREE_FULL_MARK = "Leeds Artist"
-# COURSE_FOUR_FULL_MARK = "Leeds Economist"
-# COURSE_FIVE_FULL_MARK = "Leeds Sociologist"
-# COURSE_SIX_FULL_MARK = "Leeds Political Scientist"
 COURSE_ONE_RECOMMANDED_PASS = "The Great Historian"
 COURSE_TWO_RECOMMANDED_PASS = "The Great Warologist"
 COURSE_THREE_RECOMMANDED_PASS = "The Great Artist"

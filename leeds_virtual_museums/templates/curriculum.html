@@ -2,17 +2,33 @@
 {% load static %}
 {% block content %}
 
-<div class="container main-container">
-    <h1>Curriculum</h1>
+<div id="curriculum-header" class="shadow-lg">
+    <div class="row">
+        <div class="col-6">
+            <img src="{% static 'images/Curriculum-background.png' %}" alt="" height="400px">
+        </div>
+        <div class="col-5 text-right" style="border-bottom: 70px; padding-top: 80px;">
+            <h1 style="font-size: 50px;">Leeds Museum</h1>
+            <h1 style="font-size: 75px;">Curriculum</h1>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="text-center" style="padding-top: 100px;">
+        <a href="#curriculum-content" class="btn border" id="discover-btn">
+            <h4>Discover</h4>
+        </a>
+    </div>
+</div>
 
+<div class="container main-container" id="curriculum-content">
     <br>
     {% if recommandation %}
-    <h3>Recommanded for you</h3>
-    <div class="card curriculum">
+    <h3>Course Recommendation</h3>
+    <div class="card curriculum border-0">
         <img class="card-img-top" src="/static/images/{{ pic_files|get_item:course_number }}" alt="Card image cap" height="220px">
-        <div class="card-body">
+        <div class="card-body" style="background-color: #CED2C2;">
             <h5 class="card-title">{{ recommandation }}</h5>
-            <a class="btn btn-primary" href="/course?course={{ course_number }}">Explore</a>
+            <a class="btn" style="background-color: #0d4548; color: white;" href="/course?course={{ course_number }}">Explore</a>
         </div>
     </div>
     {% else %}
@@ -20,14 +36,14 @@
     {% endif %}
     
     <br>
-    <h3>Other courses</h3>
+    <h3>Other Courses</h3>
     <div class="row">
         {% for course_num, course_name, _, _ in other_courses %}
-        <div class="card curriculum">
+        <div class="card curriculum shadow">
             <img class="card-img-top" src="/static/images/{{ pic_files|get_item:course_num }}" alt="Card image cap" height="220px">
-            <div class="card-body">
+            <div class="card-body" style="background-color: #CED2C2;">
                 <h5 class="card-title">{{ course_name }}</h5>
-                <a class="btn btn-primary" href="/course?course={{ course_num }}">Explore</a>
+                <a class="btn" style="background-color: #0d4548; color: white;" href="/course?course={{ course_num }}">Explore</a>
             </div>
         </div>
         {% endfor %}

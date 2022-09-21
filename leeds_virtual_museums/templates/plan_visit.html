@@ -2,33 +2,51 @@
 {% load static %}
 {% block content %}
 
-<div class="container main-container">
-    <h1>Plan Your Visit</h1>
-    <br>
-    <h3>Tickets you can exchange</h3>
-    <br>
-    {% for ticket, item in available.items %}
-    <div class="card exchange border-0">
-        <h5 class="card-title">{{ticket}}</h5>
-        <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px"> 
-        <label>Required item: {{ item }}</label>
-        <form method="POST" action=""> {% csrf_token %}
-            <input type="hidden" name="ticket" value="{{ticket}}">
-            <input type="hidden" name="item" value="{{item}}">
-            <input class="btn btn-primary" type="submit" name="exchange" value="Exchange">
-        </form>
+<div id="plan-visit-header" class="shadow-lg">
+    <div class="row">
+        <div class="col-6"></div>
+        <div class="col-4 text-right" style="border-bottom: 70px;">
+            <h1 style="font-size: 85px;">Plan</h1>
+            <h1 style="font-size: 60px;">Your Visit</h1>
+        </div>
+        <div class="col-2"></div>
     </div>
-    <br>
-    {% endfor %}
-    <br>
-    <h3>More tickets</h3>
-    {% for ticket, item in unavailable.items %}
-    <div>
-        <span name="ticket">Ticket: {{ ticket }}</span>
+</div>
+<div style="background-color: #A2AD9A;">
+    <div class="container main-container">
+        <div class="row">
+            <div class="account-block col-5 shadow">
+                <h3>Tickets you can exchange</h3>
+                {% for ticket, item in available.items %}
+                <div class="card exchange border-0 bg-light shadow">
+                    <h5 class="card-title">{{ticket}}</h5>
+                    <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px" class="rounded"> 
+                    <label>Required item: {{ item }}</label>
+                    <form method="POST" action=""> {% csrf_token %}
+                        <input type="hidden" name="ticket" value="{{ticket}}">
+                        <input type="hidden" name="item" value="{{item}}">
+                        <input class="btn btn-primary" type="submit" name="exchange" value="Exchange">
+                    </form>
+                </div>
+                {% endfor %}
+                <br>
+            </div>
+            <div class="col-6">
+                <div class="account-block shadow">
+                    <h3>More tickets</h3>
+                    {% for ticket, item in unavailable.items %}
+                    <div class="card exchange border-0 bg-light shadow">
+                        <h5 class="card-title">{{ticket}}</h5>
+                        <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px" class="rounded"> 
+                        <label>Study the curriculum to exchange ticket!</label>
+                    </div>
+                    {% empty %}
+                    <p>Come back later for more event tickets!</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% empty %}
-    <p>Come back later for more event tickets!</p>
-    {% endfor %}
 </div>
 
 

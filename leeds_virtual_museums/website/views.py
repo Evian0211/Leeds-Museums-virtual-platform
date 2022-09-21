@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.template.defaulttags import register
 
 from .models import Item
-from .text import COURSE_PICTURE, EVALUATION_QUESTIONS, ITEM_PICTURE, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE, TICKET_PICTURE, TICKETS
+from .text import COURSE_PICTURE, COURSE_TITLE, EVALUATION_QUESTIONS, ITEM_PICTURE, NO_EVALUATION_TEXT, CURRICULUM, RECOMMAND_COURSE, TICKET_PICTURE, TICKETS
 from . import user
 
 @register.filter
@@ -101,32 +101,32 @@ def course_question_view(request, *args, **kwargs):
                 user.clear_course_quiz_answers(request.user, course_number)
                 got_item = user.get_item(request.user, course_number, score)
                 return render(request, "quiz_result.html", {"quiz_result": score, "got_item": got_item})
-                # TODO: create a course quiz result page
-                return redirect("/")
             elif request.POST.get("next"):
+                print(request.POST.get("answer"))
                 user.update_course_quiz_answer(request.user, course_number, request.POST.get("this"), int(request.POST.get("answer")))
         if request.GET.get("question"):
             q_number = int(request.GET.get("question"))
         else:
             q_number = 0
-        _, _, course_content, questions = CURRICULUM[course_number]
+        _, course_name, course_content, questions = CURRICULUM[course_number]
         category = [header for header, _ in course_content]
         (question_text, choices) = questions[q_number]
         if q_number < len(questions) - 1:
             next = q_number + 1
         else:
             next = -1
-        return render(request, "course_question.html", {"course_number": course_number, "this": q_number, "next": next, "question": question_text, "choices": choices, "category": category})
+        return render(request, "course_question.html", {"course_name": course_name, "course_number": course_number, "this": q_number, "next": next, "question": question_text, "choices": choices, "category": category})
 
 
 @login_required(login_url="/login")
 def evaluation_view(request, *args, **kwargs):
     evaluation_result = user.get_evaulation_result(request.user)
+    evaluation_title = COURSE_TITLE[evaluation_result]
     evaluated = True
     if not evaluation_result:
         evaluation_result = NO_EVALUATION_TEXT
         evaluated = False
-    return render(request, "evaluation.html", {"evaluation_result": evaluation_result, "evaluated": evaluated})
+    return render(request, "evaluation.html", {"evaluation_result": evaluation_result, "evaluation_title": evaluation_title, "evaluated": evaluated})
 
 
 @login_required(login_url="/login")

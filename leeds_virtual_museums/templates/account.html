@@ -4,19 +4,34 @@
 
 <header id="account-background">
     <div id="account-header" class="shadow-lg">
-        <h1 style="font-size: 80px; font-family: sans-serif;">Account</h1>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-4 text-right" style="border-bottom: 70px;">
+                <h1 style="font-size: 85px;">Leeds</h1>
+                <h1 style="font-size: 60px;">Virtual Museum</h1>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-2 text-right">
+                <img src="{% static 'images/avatar.png' %}" width="130px" height="130px" class="rounded-circle" style="margin-left: 20px;">
+            </div>
+            <div class="col-4" style="padding-top: 55px">
+                <span style="font-size: 30px; color: #0d4548;">{{ user.get_username }}</span>
+            </div>
+            <div class="col-2"></div>
+        </div>
     </div>
-
-<div class="container main-container">
-
+<div class="container main-container" style="padding-top: 140px">
     <div class="row">
         <div class="account-block col-5 shadow">
             <h3>Event Tickets</h3>
             {% for ticket in tickets %}
-            <div class="card ticket col-10 bg-secondary">
+            <div class="card ticket col-10 shadow bg-light">
                 <h5 class="card-title opacity-100">{{ticket}}</h5>
-                <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px">
-                <span>Present this ticket on your arrival</span> 
+                <img src="{% static 'images/' %}{{ tickets_pic|get_item:ticket }}" width="100px" height="100px" style="border-radius: 3px;">
+                <span class="text-muted">Present this ticket on your arrival</span> 
             </div>
             {% endfor %}
             <br>
